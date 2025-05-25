@@ -1,18 +1,10 @@
-pipeline{
-    agent{
-        label "agent-1"
-    }
+node('agent-1') {
     
-    stages{
-        stage("build Docker image"){
-            steps{
-                sh "docker build -t kamelmostafa/python-ci-cd:v${BUILD_NUMBER} ."
-            }
-        }
-        stage("Push Docker image"){
-            steps{
-                sh "docker push kamelmostafa/python-ci-cd:v${BUILD_NUMBER}"
-            }
-        }
+    stage('Build Docker image') {
+        sh "docker build -t kamelmostafa/python-ci-cd-script:v${env.BUILD_NUMBER} ."
+    }
+
+    stage('Push Docker image') {
+        sh "docker push kamelmostafa/python-ci-cd-script:v${env.BUILD_NUMBER}"
     }
 }
